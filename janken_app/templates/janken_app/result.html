@@ -1,0 +1,35 @@
+{% include 'janken/base.html' %}
+{% block content %}
+    <div style="background-color: rgba(255, 255, 255, 0.95);padding: 30px;padding-top: 50px;padding-bottom: 50px;border-radius: 10px;">
+      {% if userName %}
+        <h1>{{userName}}さんの負けです！</h1>
+      {% else %}
+        <h1>あなたの負けです!</h1>
+      {% endif %}
+      <P>・相手は{{enemy}}を出しました</P>
+      <p>・{{win}}連勝しました！</p>
+      {% if userName %}
+        <form action="{% url 'result2' %}" method="POST">
+          {% csrf_token %}
+          <h1><b>RESULT</b></h1>
+          <div class="form-inline">
+            <div class="row">
+              <div class="form-inline">
+                <label for="name" style="font-size: 25px;">　YourName:</label>
+                <input type="text" value="{{userName}}" name="name" id="name" class="form-control">
+              </div>
+              <div class="form-inline">
+                <label for="windows" style="font-size: 25px;">　　連勝回数:</label>
+                <input type="text" value="{{win}}" name="result" id="windows" class="form-control">
+              </div>
+            </div>
+          </div>
+        </form>
+      {% endif %}
+      <div class="float-right" style="padding-right: 50px;">
+        <a href="{% url 'janken' %}" class="btn btn-primary">もう一回！</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

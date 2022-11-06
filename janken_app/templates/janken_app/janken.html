@@ -1,0 +1,87 @@
+{% include 'janken/base.html' %}
+{% block content %}
+      <div style="background-color: rgba(255, 255, 255, 0.95);padding: 30px;padding-top: 20px;padding-bottom: 20px;border-radius: 10px;">
+        <div class="form-inline" style="padding-bottom: 20px;">
+          <input type="text" name="name" id="user_name" placeholder="YourName" class="form-control">
+          <button onclick="update()" class="btn btn-info btn-sm">登録</button>
+        </div>
+        {% if enemy %}
+        <p>相手は{{enemy}}を出したよ</p>
+        {% endif %}
+        <div class="container" style="background-color: rgb(230, 230, 230);">
+          <div class="row" style="padding-top: 15px;padding-bottom: 5px;">
+            <div class="col-sm-4"><input type="image" onclick="g()" src="static/janken/g.png" width="240" height="240"></div>
+            <div class="col-sm-4"><input type="image" onclick="c()" src="static/janken/c.png" width="240" height="240"></div>
+            <div class="col-sm-4"><input type="image" onclick="p()" src="static/janken/p.png" width="240" height="240"></div>
+          </div>
+        </div>
+        <form action="{% url 'janken2' %}" method="POST" name="form">
+          {% csrf_token %}
+          <div class="container" style="background-color: rgb(230, 230, 230);">
+            <div class="row">
+              <div class="col-sm-4">
+                <input type="text" name="g" value="None"  readonly>
+                <label id="g"></label>
+              </div>
+              <div class="col-sm-4">
+                <input type="text" name="c" value="None"  readonly>
+                <label id="c"></label>
+              </div>
+              <div class="col-sm-4">
+                <input type="text" name="p" value="None"  readonly>
+                <label id="p"></label>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="float-right" style="padding-right: 50px;">
+            <button type="submit" class="btn btn-success btn-lg"><b>じゃんけん！</b></button>
+          </div>
+          <br>
+          <div class="container">
+            <div class="row">
+              <div class="form-inline">
+                <div>
+                  <lavel for="name" class="word1">YourName:</lavel>
+                  <input type="text" name="userName" value="None" id="name" class="form-control" readonly>
+                </div>
+                <div>
+                  <lavel for="windows" class="word1">　連勝回数:</lavel>
+                  <input type="text" name="win" value="0" id="windows" class="form-control" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+        <div id="interval">
+          <button class="btn btn-primary"
+            data-toggle="collapse"
+            data-target="#example-1"
+            aria-expand="false"
+            aria-controls="example-1">遊び方
+          </button>
+        </div>
+        <div class="collapse" id="example-1">
+          <div class="card card-body">
+            <ul class="list-group">
+              <li class="list-group-item">
+                このゲームはあなたがじゃんけんで何連勝できるかを競うゲームです
+              </li>
+              <li class="list-group-item">
+                1.YourNameに名前を書いて登録ボタンをポチ
+              </li>
+              <li class="list-group-item">
+                2.グーかチョキかパーの手を選ぶ
+              </li>
+              <li class="list-group-item">
+                3.じゃんけん！ボタンをポチ
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script></script>
+{% endblock %}
