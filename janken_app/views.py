@@ -1,9 +1,7 @@
 from django.shortcuts import render
-
-# Create your views here.
-
-def result(request):
-    return render(request, "janken/result.html")
+from .models import Janken
+from django.utils import timezone
 
 def janken(request):
-    return render(request, "janken/janken.html")
+    users = Janken.objects.filter(create_date__lte=timezone.now()).order_by('create_date')
+    return render(request, "janken_app/janken.html", {'users': users})
